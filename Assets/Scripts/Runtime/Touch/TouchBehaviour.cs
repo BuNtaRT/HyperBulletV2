@@ -1,0 +1,97 @@
+using UnityEngine;
+using UnityEngine.InputSystem;
+
+namespace Runtime.Touch
+{
+    public class TouchBehaviour : MonoBehaviour
+    {
+        private InputScheme _input;
+
+        private Vector2 _beganTouch = Vector2.zero;
+
+        private Camera _camera;
+        private bool _isEmtyContact = true;
+
+        private void Awake()
+        {
+            _camera = Camera.main;
+            _input = new InputScheme();
+ 
+
+            _input.Player.Contact.started += OnStartContact;
+            _input.Player.Contact.canceled += OnEndContact;
+            _input.Player.Position.performed += OnPosition;
+            _input.Player.Tap.canceled += OnTap;
+        }
+
+        private void OnStartContact(InputAction.CallbackContext context) {
+            Vector2 contact = _input.Player.Position.ReadValue<Vector2>();
+            _beganTouch = contact;
+        }
+
+        private void OnPosition(InputAction.CallbackContext context)
+        {
+            Vector2 position = _input.Player.Position.ReadValue<Vector2>();
+
+            if (_isEmtyContact && isCorrectTouch(_beganTouch, position))
+            {
+                _isEmtyContact = false;
+            }
+            else if (!_isEmtyContact)
+            {
+                OnMoved(position, TouchState.progress);
+            }
+
+        }
+
+        private void OnEndContact(InputAction.CallbackContext context)
+        {
+            Vector2 position = _input.Player.Position.ReadValue<Vector2>();
+
+            if (isCorrectTouch(_beganTouch, position))
+            {
+                _isEmtyContact = true;
+                _beganTouch = Vector2.zero;
+
+                OnMoved(position, TouchState.ended);
+            }
+        }
+    
+
+        private void OnTap(InputAction.CallbackContext context) {
+            Vector2 contact = _input.Player.Position.ReadValue<Vector2>();
+            Ray ray = _camera.ScreenPointToRay(contact);
+            RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction);
+
+            EventTouch touch = new EventTouch() { Collision = hit.transform, Position = hit.point };
+            OnTouch(touch);
+        }
+
+        private void OnEnable()
+        {
+            _input.Enable();
+            _input.Player.Contact.started += OnStartContact;
+            _input.Player.Contact.canceled += OnEndContact;
+            _input.Player.Position.performed += OnPosition;
+            _input.Player.Tap.canceled += OnTap;
+        }
+        private void OnDisable()
+        {
+            _input.Disable();
+            _input.Player.Contact.started -= OnStartContact;
+            _input.Player.Contact.canceled -= OnEndContact;
+            _input.Player.Position.performed -= OnPosition;
+            _input.Player.Tap.canceled -= OnTap;
+        }
+
+        private bool isCorrectTouch(Vector2 start, Vector2 end) => start != Vector2.zero && (start - end).sqrMagnitude >= 0.5f;
+
+        private void OnMoved(Vector2 current, TouchState status) => GlobalEventsManager.InvokSwipe(new EventSwipe() { Current = current, Start = _beganTouch, Status = status });
+        private void OnTouch(EventTouch touch) => GlobalEventsManager.InvokTouch(touch);
+    }
+
+    public enum TouchState { 
+        progress,
+        ended,
+    }
+}
