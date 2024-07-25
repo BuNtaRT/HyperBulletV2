@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Lib
 {
-    public static class DictionaryExtention
+    public static class DictionaryExtension
     {
         /// <summary>
         /// Get Random entry where Value is false

@@ -1,8 +1,9 @@
+using System.Globalization;
 using UnityEngine;
 
 namespace Lib
 {
-    public static class ColorExtention
+    public static class ColorTools
     {
         /// <summary>
         /// 
@@ -21,6 +22,23 @@ namespace Lib
             gradient.SetKeys(colorKey, alphaKey);
 
             return gradient;
+        }
+        
+        public static Color FromHex(string hex)
+        {
+            hex = hex.Replace("#", "");
+            byte[] colors = new byte[]
+            {
+                0, 0, 0, 255
+            };
+
+            var colorI = 0;
+            for (int i = 0; i <= hex.Length; i=+2) {
+                colors[colorI] = byte.Parse(hex.Substring(i, 2), NumberStyles.HexNumber);
+                colorI++;
+            }
+
+            return new Color32(colors[0],colors[1],colors[2],colors[3]);
         }
     }
 }

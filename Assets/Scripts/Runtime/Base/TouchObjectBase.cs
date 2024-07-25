@@ -51,9 +51,9 @@ namespace Runtime.Base
 
     public class TouchGameStatusBase : TouchBase 
     {
-        protected GameStatus _currentStatus = GameStatus.None;
+        protected GameStatus _currentStatus;
 
-        public TouchGameStatusBase(): base()
+        protected TouchGameStatusBase(): base()
         {
             _currentStatus = GlobalEventsManager.LastGameStatus;
             GlobalEventsManager.OnGameStatus.AddListener(OnGameStatusChanged);

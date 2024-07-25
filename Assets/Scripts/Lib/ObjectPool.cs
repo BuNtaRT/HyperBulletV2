@@ -10,7 +10,8 @@ namespace Lib
         private static GameObject _overSpawnCell;
         private static GameObject _mainContainer;
 
-        [SerializeField] private List<ObjectsInfo> objectsInfo = new List<ObjectsInfo>();
+        [SerializeField]
+        private List<ObjectsInfo> objectsInfo = new List<ObjectsInfo>();
         private static List<ObjectsInfo> _objectsInfoStatic = new List<ObjectsInfo>();
         private static Dictionary<TypeObj, Queue<GameObject>> _poolDictionary;
 
@@ -43,7 +44,6 @@ namespace Lib
                 _poolDictionary.Add(temp.type, tempQueue);
             }
         }
-
 
         public static Transform SpawnObj(TypeObj type, Vector3 position)
         {

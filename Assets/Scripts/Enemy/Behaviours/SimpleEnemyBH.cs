@@ -1,3 +1,4 @@
+using Bullet.BulletBase;
 using Enemy.EnemyBase;
 using UnityEngine;
 using Vault;
@@ -18,22 +19,14 @@ namespace Enemy.Behaviours
             return config;
         }
 
-        public void OnBullet(EnemyState state)
-        {
-        }
 
+        public TakeBulletEnemyEffect OnBullet(EnemyState state, BulletConfig bullet) => TakeBulletEnemyEffect.none;
         public bool OnDie(EnemyState state) => true;
 
-        public void OnEnterShield(EnemyState state)
-        {
-        }
+        public void OnEnterShield(EnemyState state) { }
 
-        public void OnExitShield(EnemyState state)
-        {
-        }
+        public void OnExitShield(EnemyState state) { }
 
-        public void OnUpdate(EnemyState state)
-        {
-        }
+        public void OnUpdate(EnemyState state) { }
     }
 }

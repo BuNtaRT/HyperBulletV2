@@ -60,6 +60,7 @@ namespace Enemy.EnemyBase
 
         private void SetColor(Color color)
         {
+            //todo: в 3д были только цвета, тут можно сделать разные спрайты
             _body = _enemyObject.Find("Body").GetComponent<SpriteRenderer>();
             _body.color = color;
         }

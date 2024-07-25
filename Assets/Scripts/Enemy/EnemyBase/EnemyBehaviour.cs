@@ -1,3 +1,4 @@
+using Bullet.BulletBase;
 using DG.Tweening;
 using Lib;
 using Runtime;
@@ -7,14 +8,14 @@ namespace Enemy.EnemyBase
 {
     public class EnemyBehaviour : MonoBehaviour
     {
-        public Tweener MoveTween;
+        private Tweener _moveTween;
 
         private EnemyState _state;
         private IEnemyBehavioral _enemyBehaviour;
 
         private void Awake()
         {
-            MoveTween.Play();
+            _moveTween.Play();
         }
 
         public void Init(IEnemyBehavioral behaviour)
@@ -24,9 +25,9 @@ namespace Enemy.EnemyBase
             var config = behaviour.GetConfig();
             _state = new EnemyState(transform, config);
 
-            float speed = Vector2.Distance(transform.position, LvlVariables.PlayerPosition) / config.Speed;
+            float duration = Vector2.Distance(transform.position, LvlVariables.PlayerPosition) / config.Speed;
 
-            MoveTween = transform.DOMove(LvlVariables.PlayerPosition, speed)
+            _moveTween = transform.DOMove(LvlVariables.PlayerPosition, duration)
                 .SetEase(Ease.Linear)
                 .OnUpdate(OnMoveUpdate);
         }
@@ -34,15 +35,20 @@ namespace Enemy.EnemyBase
 
         //todo: Пока void, но нужно наверное возвращать поведение пули при столкновении
 
-        public void TakeBullet()
+        public TakeBulletEnemyEffect TakeBullet(BulletConfig bullet)
         {
             //todo: нужно что бы пуля передавала свой конфиг и от туда брать урон
-            _state.TakeDamage(1);
-            //todo: еще нужно передать пулю сюда
-            _enemyBehaviour.OnBullet(_state);
+            var effect = _enemyBehaviour.OnBullet(_state, bullet);
+
+            // если нужен эффект с другим уроном, то это можно реализовать в поведении противника
+            if(effect == TakeBulletEnemyEffect.none)
+                _state.TakeDamage(bullet.Damage);
+            
 
             if (_state.GetStatus() == EnemyLiveStatus.Death)
                 OnDie();
+
+            return TakeBulletEnemyEffect.none;
         }
 
         public void EnterShield() => _enemyBehaviour.OnEnterShield(_state);
@@ -56,7 +62,7 @@ namespace Enemy.EnemyBase
             if (!reallyDie)
                 return;
 
-            MoveTween.Kill();
+            _moveTween.Kill();
 
             //todo: можно кастомизировать дистанцию и время отлета назад, а так же Ease для каждого типа противника в конфиге
             float knockbackDistance = 2f;
@@ -68,5 +74,11 @@ namespace Enemy.EnemyBase
                 .SetEase(Ease.OutQuad)
                 .OnComplete(() => ObjectPool.Destroy(TypeObj.Enemy, gameObject));
         }
+    }
+
+    public enum TakeBulletEnemyEffect
+    {        
+        none,
+        ricochet,
     }
 }
