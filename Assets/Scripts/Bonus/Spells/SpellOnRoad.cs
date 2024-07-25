@@ -1,4 +1,3 @@
-
 using Lib;
 using Runtime;
 
@@ -23,10 +22,9 @@ namespace Bonus.Spells
 
         public void Pick()
         {
-            GlobalEventsManager.InvokPickupSpell(_spell);
+            GlobalEventsManager.InvokePickupSpell(_spell);
             End();
             ObjectPool.Destroy(TypeObj.Spell, gameObject);
         }
-
     }
 }

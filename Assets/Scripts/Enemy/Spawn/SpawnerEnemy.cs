@@ -1,30 +1,22 @@
 ﻿using Enemy.EnemyBase;
 using Lib;
+using Runtime;
 using UnityEngine;
 
 namespace Enemy.Spawn
 {
     public class SpawnerEnemy
     {
+        private const float AREA_BORDERS = 1.2f;
+
         private Vector2[] _anglesCoordinate;
-        private float _areaBorders = 1.2f;
+        private readonly Camera _mainCamera;
 
-        public SpawnerEnemy(Camera camera)
+        public SpawnerEnemy()
         {
-            var worldBottomLeft = camera.ScreenToWorldPoint(new Vector3(0, 0, camera.nearClipPlane));
-            var worldBottomRight = camera.ScreenToWorldPoint(new Vector3(Screen.width, 0, camera.nearClipPlane));
-            var worldTopLeft = camera.ScreenToWorldPoint(new Vector3(0, Screen.height, camera.nearClipPlane));
-            var worldTopRight =
-                camera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, camera.nearClipPlane));
-
-
-            _anglesCoordinate = new[]
-            {
-                GetPointWithBorders(worldBottomLeft),
-                GetPointWithBorders(worldTopLeft),
-                GetPointWithBorders(worldTopRight),
-                GetPointWithBorders(worldBottomRight)
-            };
+            _mainCamera = Camera.main;
+            UpdateAngles();
+            GlobalEventsManager.OnPlayerMove.AddListener(OnPlayerMoveChanged);
         }
 
         public Transform Spawn(IEnemyBehavioral behavior)
@@ -36,6 +28,31 @@ namespace Enemy.Spawn
             enemy.GetComponent<EnemyBehaviour>().Init(behavior);
 
             return enemy;
+        }
+
+        private void OnPlayerMoveChanged(EventMovePlayer movement)
+        {
+            if (movement.stage == ProgressStage.ended)
+                UpdateAngles();
+        }
+
+        private void UpdateAngles()
+        {
+            var worldBottomLeft = _mainCamera!.ScreenToWorldPoint(new Vector3(0, 0, _mainCamera.nearClipPlane));
+            var worldBottomRight =
+                _mainCamera.ScreenToWorldPoint(new Vector3(Screen.width, 0, _mainCamera.nearClipPlane));
+            var worldTopLeft = _mainCamera.ScreenToWorldPoint(new Vector3(0, Screen.height, _mainCamera.nearClipPlane));
+            var worldTopRight =
+                _mainCamera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, _mainCamera.nearClipPlane));
+
+
+            _anglesCoordinate = new[]
+            {
+                GetPointWithBorders(worldBottomLeft),
+                GetPointWithBorders(worldTopLeft),
+                GetPointWithBorders(worldTopRight),
+                GetPointWithBorders(worldBottomRight)
+            };
         }
 
         private Vector2 GetPointOnSide(Vector2[] sideDots)
@@ -56,6 +73,6 @@ namespace Enemy.Spawn
             return new[] { _anglesCoordinate[indexFirst], _anglesCoordinate[indexSecond] };
         }
 
-        private Vector2 GetPointWithBorders(Vector3 point) => point * _areaBorders;
+        private Vector2 GetPointWithBorders(Vector3 point) => point * AREA_BORDERS;
     }
 }

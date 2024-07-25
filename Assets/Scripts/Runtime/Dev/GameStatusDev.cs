@@ -12,17 +12,16 @@ namespace Runtime.Dev
         private void Awake()
         {
             _gameStatus = gameStatus;
-            GlobalEventsManager.InvokGameStatus(gameStatus);
+            GlobalEventsManager.InvokeGameStatus(gameStatus);
         }
 
         private void FixedUpdate()
         {
-            if (_gameStatus != gameStatus) 
+            if (_gameStatus != gameStatus)
             {
                 _gameStatus = gameStatus;
-                GlobalEventsManager.InvokGameStatus(gameStatus);
+                GlobalEventsManager.InvokeGameStatus(gameStatus);
             }
         }
-
     }
 }
