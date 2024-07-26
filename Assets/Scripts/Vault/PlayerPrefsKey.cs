@@ -2,11 +2,12 @@ namespace Vault
 {
     public struct PlayerPrefsKey
     {
-        public enum langKey
+        public enum LangKey
         {
-            en = 0,
-            ru = 1
+            En = 0,
+            Ru = 1
         }
+
         public const string SPEED_UP = "all_speed_enemy"; // > 0
     }
 }

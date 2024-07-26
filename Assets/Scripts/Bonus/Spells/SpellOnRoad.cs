@@ -9,14 +9,14 @@ namespace Bonus.Spells
 
         private void Awake()
         {
-            _objectType = TypeObj.Spell;
+            ObjectType = TypeObj.Spell;
             Init();
         }
 
         public void Set(SpellSO spell)
         {
             _spell = spell;
-            _icoRender.sprite = spell.Ico;
+            icoRender.sprite = spell.ico;
             InitAnim();
         }
 

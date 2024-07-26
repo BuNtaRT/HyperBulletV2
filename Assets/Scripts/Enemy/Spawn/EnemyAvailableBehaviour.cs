@@ -20,8 +20,8 @@ namespace Enemy.Spawn
 
         public IEnemyBehavioral GetNext()
         {
-            var index = Random.Range(0, _behaviorals.Count);
-            var randomBehaviour = _behaviorals[index];
+            int index = Random.Range(0, _behaviorals.Count);
+            EnemiesConfiguration randomBehaviour = _behaviorals[index];
 
             string fullName = $"Enemy.Behaviours.{randomBehaviour.Name}";
             Type type = Type.GetType(fullName);
@@ -34,7 +34,7 @@ namespace Enemy.Spawn
             }
             else
             {
-                behavioral = new SimpleEnemyBH();
+                behavioral = new SimpleEnemyBh();
                 Debug.LogError($"name '{fullName}' not found!!");
             }
 

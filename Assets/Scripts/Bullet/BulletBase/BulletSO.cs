@@ -1,17 +1,27 @@
 ﻿using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Bullet.BulletBase
 {
     [CreateAssetMenu(fileName = "New Bullet", menuName = "Ammo/Bullet")]
     public class BulletSO : ScriptableObject
     {
-        public float Speed;
-        public int Damage;
+        [FormerlySerializedAs("Speed")]
+        public float speed;
 
-        public Color Color;
-        public Gradient Trail;
+        [FormerlySerializedAs("Damage")]
+        public int damage;
 
-        public bool CustomMove;
-        public AnimationCurve MovePattern;
+        [FormerlySerializedAs("Color")]
+        public Color color;
+
+        [FormerlySerializedAs("Trail")]
+        public Gradient trail;
+
+        [FormerlySerializedAs("CustomMove")]
+        public bool customMove;
+
+        [FormerlySerializedAs("MovePattern")]
+        public AnimationCurve movePattern;
     }
 }

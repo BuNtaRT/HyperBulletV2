@@ -9,14 +9,14 @@ namespace Bonus.Perk
 
         private void Awake()
         {
-            _objectType = TypeObj.None;
+            ObjectType = TypeObj.None;
             Init();
         }
 
         public void Set(PerkSO perk)
         {
             _perk = perk;
-            _icoRender.sprite = perk.Ico;
+            icoRender.sprite = perk.ico;
             InitAnim();
         }
 

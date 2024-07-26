@@ -5,22 +5,23 @@ using Vault;
 
 namespace Enemy.Behaviours
 {
-    public class SimpleEnemyBH : IEnemyBehavioral
+    public class SimpleEnemyBh : IEnemyBehavioral
     {
         public EnemyConfig GetConfig()
         {
-            var config = new EnemyConfig()
+            EnemyConfig config = new EnemyConfig()
             {
                 Color = EnemyColors.Auaq,
                 Speed = 1.3f + PlayerPrefs.GetFloat(PlayerPrefsKey.SPEED_UP),
-                Hp = 1
+                Hp = 1,
             };
 
             return config;
         }
 
+        public TakeBulletEnemyEffect OnBullet(EnemyState state, BulletConfig bullet) =>
+            TakeBulletEnemyEffect.None;
 
-        public TakeBulletEnemyEffect OnBullet(EnemyState state, BulletConfig bullet) => TakeBulletEnemyEffect.none;
         public bool OnDie(EnemyState state) => true;
 
         public void OnEnterShield(EnemyState state) { }

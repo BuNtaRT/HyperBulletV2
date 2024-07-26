@@ -26,10 +26,10 @@ namespace Bullet.BulletBase
 
             _bulletCore = transform.GetChild(0);
 
-            var config = behaviour.GetConfig();
+            BulletConfig config = behaviour.GetConfig();
             _state = new BulletState(_bulletCore, config);
 
-            var bulletTarget = target.normalized * distance;
+            Vector2 bulletTarget = target.normalized * distance;
 
             float duration = Vector2.Distance(transform.position, bulletTarget) / config.Speed;
 
@@ -44,16 +44,16 @@ namespace Bullet.BulletBase
 
         private void OnHit(Transform enemy)
         {
-            var enemyBehaviour = enemy.GetComponent<EnemyBehaviour>();
-            var enemyEffect = enemyBehaviour.TakeBullet(_state.GetConfig());
+            EnemyBehaviour enemyBehaviour = enemy.GetComponent<EnemyBehaviour>();
+            TakeBulletEnemyEffect enemyEffect = enemyBehaviour.TakeBullet(_state.GetConfig());
 
-            if (enemyEffect == TakeBulletEnemyEffect.none)
+            if (enemyEffect == TakeBulletEnemyEffect.None)
             {
-                var destroyConfirm = _bulletBehaviour.OnHit(_state, transform);
+                bool destroyConfirm = _bulletBehaviour.OnHit(_state, transform);
                 if (destroyConfirm)
                     _bulletBehaviour.OnDie(_state, transform, false);
             }
-            if (enemyEffect == TakeBulletEnemyEffect.ricochet)
+            if (enemyEffect == TakeBulletEnemyEffect.Ricochet)
                 Ricochet();
         }
 
@@ -80,8 +80,8 @@ namespace Bullet.BulletBase
 
         private void Ricochet()
         {
-            var distance = Vector2.Distance(transform.position, LvlVariables.PlayerPosition);
-            var target = Vector2Tools.GetRandomPointOnCircle(transform.position, distance / 2);
+            float distance = Vector2.Distance(transform.position, LvlVariables.PlayerPosition);
+            Vector2 target = Vector2Tools.GetRandomPointOnCircle(transform.position, distance / 2);
             UpdateTarget(target, Ease.OutQuart);
         }
 

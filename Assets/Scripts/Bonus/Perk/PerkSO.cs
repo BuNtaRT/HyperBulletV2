@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Bonus.Perk
 {
@@ -6,31 +7,41 @@ namespace Bonus.Perk
     public class PerkSO : ScriptableObject
     {
         public PerkRarity rarity;
-        public string NameRU;
-        public string NameEU;
 
-        public string DescriptionRU;
-        public string DescriptionEU;
+        [FormerlySerializedAs("NameRU")]
+        public string nameRu;
 
-        public Sprite Ico;
+        [FormerlySerializedAs("NameEU")]
+        public string nameEu;
+
+        [FormerlySerializedAs("DescriptionRU")]
+        public string descriptionRu;
+
+        [FormerlySerializedAs("DescriptionEU")]
+        public string descriptionEu;
+
+        [FormerlySerializedAs("Ico")]
+        public Sprite ico;
         public PerkName perkName;
 
-        public Gradient GradientParticle;
-        public Color MainColor;
+        [FormerlySerializedAs("GradientParticle")]
+        public Gradient gradientParticle;
 
+        [FormerlySerializedAs("MainColor")]
+        public Color mainColor;
     }
 
     public enum PerkName : byte
     {
         // названия классов, точ в точ
         Prediction,
-        Extra_Sphere,
-        Fast_Bullet,
-        Slow_Mo_Bullet,
-        TwoX_PowerBullet,
-        Bursting_Bullet,
-        Ricochet_Bullet,
-        Slow_Mo_shoot,
+        ExtraSphere,
+        FastBullet,
+        SlowMoBullet,
+        TwoXPowerBullet,
+        BurstingBullet,
+        RicochetBullet,
+        SlowMoShoot,
         SuperPower,
         SuperDiscontr,
         ExplBullet,
@@ -38,7 +49,7 @@ namespace Bonus.Perk
         Healt,
         SuperPowerShealt,
         EmiBullet,
-        TwoX_Damage,
+        TwoXDamage,
     }
 
     public enum PerkRarity : byte

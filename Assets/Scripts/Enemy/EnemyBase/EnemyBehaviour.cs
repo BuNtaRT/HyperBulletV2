@@ -22,43 +22,44 @@ namespace Enemy.EnemyBase
         {
             _enemyBehaviour = behaviour;
 
-            var config = behaviour.GetConfig();
+            EnemyConfig config = behaviour.GetConfig();
             _state = new EnemyState(transform, config);
 
-            float duration = Vector2.Distance(transform.position, LvlVariables.PlayerPosition) / config.Speed;
+            float duration =
+                Vector2.Distance(transform.position, LvlVariables.PlayerPosition) / config.Speed;
 
-            _moveTween = transform.DOMove(LvlVariables.PlayerPosition, duration)
+            _moveTween = transform
+                .DOMove(LvlVariables.PlayerPosition, duration)
                 .SetEase(Ease.Linear)
                 .OnUpdate(OnMoveUpdate);
         }
-
 
         //todo: ѕока void, но нужно наверное возвращать поведение пули при столкновении
 
         public TakeBulletEnemyEffect TakeBullet(BulletConfig bullet)
         {
             //todo: нужно что бы пул€ передавала свой конфиг и от туда брать урон
-            var effect = _enemyBehaviour.OnBullet(_state, bullet);
+            TakeBulletEnemyEffect effect = _enemyBehaviour.OnBullet(_state, bullet);
 
             // если нужен эффект с другим уроном, то это можно реализовать в поведении противника
-            if(effect == TakeBulletEnemyEffect.none)
+            if (effect == TakeBulletEnemyEffect.None)
                 _state.TakeDamage(bullet.Damage);
-            
 
             if (_state.GetStatus() == EnemyLiveStatus.Death)
                 OnDie();
 
-            return TakeBulletEnemyEffect.none;
+            return TakeBulletEnemyEffect.None;
         }
 
         public void EnterShield() => _enemyBehaviour.OnEnterShield(_state);
+
         public void ExitShield() => _enemyBehaviour.OnExitShield(_state);
 
         private void OnMoveUpdate() => _enemyBehaviour.OnUpdate(_state);
 
         private void OnDie()
         {
-            var reallyDie = _enemyBehaviour.OnDie(_state);
+            bool reallyDie = _enemyBehaviour.OnDie(_state);
             if (!reallyDie)
                 return;
 
@@ -70,15 +71,16 @@ namespace Enemy.EnemyBase
 
             Vector2 direction = ((Vector2)transform.position).normalized * -1;
             Vector2 knockbackPosition = (Vector2)transform.position + direction * knockbackDistance;
-            transform.DOMove(knockbackPosition, knockbackDuration)
+            transform
+                .DOMove(knockbackPosition, knockbackDuration)
                 .SetEase(Ease.OutQuad)
                 .OnComplete(() => ObjectPool.Destroy(TypeObj.Enemy, gameObject));
         }
     }
 
     public enum TakeBulletEnemyEffect
-    {        
-        none,
-        ricochet,
+    {
+        None,
+        Ricochet,
     }
 }

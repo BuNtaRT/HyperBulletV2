@@ -11,7 +11,7 @@ namespace Lib
         /// and auto filing Value to true for return KeyPair
         /// </summary>
         /// <returns>Random Key</returns>
-        public static Tkey GetRandom<Tkey>(this Dictionary<Tkey, bool> entry)
+        public static TKey GetRandom<TKey>(this Dictionary<TKey, bool> entry)
         {
             if (entry == null || entry.Count == 0)
                 throw new System.Exception("GetRandom entry null");

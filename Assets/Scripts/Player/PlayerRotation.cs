@@ -18,7 +18,7 @@ namespace Player
         {
             base.OnTouchChanged(touch);
 
-            if (_currentStatus == GameStatus.Action) 
+            if (CurrentStatus == GameStatus.Action)
             {
                 Vector2 direction = touch.Position - (Vector2)transform.position;
                 Debug.Log(direction);

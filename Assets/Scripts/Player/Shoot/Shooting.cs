@@ -17,7 +17,7 @@ namespace Player.Shoot
         protected override void OnTouchChanged(EventTouch touch)
         {
             base.OnTouchChanged(touch);
-            if (_currentStatus != GameStatus.Action || _ammo < LvlVariables.BulletCost)
+            if (CurrentStatus != GameStatus.Action || _ammo < LvlVariables.BulletCost)
                 return;
 
             _ammo -= LvlVariables.BulletCost;

@@ -68,12 +68,12 @@ namespace Bullet.BulletBase
     {
         public BulletConfig(BulletSO bullet)
         {
-            Speed = bullet.Speed;
-            Damage = bullet.Damage;
-            Color = bullet.Color;
-            Trail = bullet.Trail;
-            CustomMove = bullet.CustomMove;
-            MovePattern = bullet.MovePattern;
+            Speed = bullet.speed;
+            Damage = bullet.damage;
+            Color = bullet.color;
+            Trail = bullet.trail;
+            CustomMove = bullet.customMove;
+            MovePattern = bullet.movePattern;
         }
 
         public float Speed;

@@ -7,12 +7,13 @@ namespace Enemy.Spawn
 {
     public class SpawnTimer : GameStatusBase
     {
-        private float _minSpawnTick;
-        private float _maxSpawnTick;
-        private bool _availableBehaviour = true;
+        private readonly float _minSpawnTick;
+        private readonly float _maxSpawnTick;
 
-        private EnemyAvailableBehaviour _behaviours;
-        private SpawnerEnemy _spawner;
+        private readonly EnemyAvailableBehaviour _behaviours;
+        private readonly SpawnerEnemy _spawner;
+
+        private bool _availableBehaviour = true;
 
         public SpawnTimer(
             EnemyAvailableBehaviour behaviours,
@@ -44,13 +45,13 @@ namespace Enemy.Spawn
 
         private int GetDelay()
         {
-            var delay = Random.Range(_minSpawnTick, _maxSpawnTick);
+            float delay = Random.Range(_minSpawnTick, _maxSpawnTick);
             return (int)(delay * 1000);
         }
 
         private void CallSpawner()
         {
-            if (_currentStatus == GameStatus.Action)
+            if (CurrentStatus == GameStatus.Action)
                 _spawner.Spawn(_behaviours.GetNext());
         }
     }

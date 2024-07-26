@@ -20,6 +20,7 @@ namespace Runtime
 
             //--------------------------- Загрузка конфига уровня
 
+            //todo: сделать загрузку из файла
             // представим что она уже сделана
             EnemiesConfiguration[] enemies = new EnemiesConfiguration[]
             {
@@ -36,7 +37,7 @@ namespace Runtime
 
             //--------------------------- Инициализация спавнера
 
-            var availableBehaviour = new EnemyAvailableBehaviour(enemies);
+            EnemyAvailableBehaviour availableBehaviour = new EnemyAvailableBehaviour(enemies);
             _spawnerEnemy = new SpawnerEnemy();
 
             _spawnTimer = new SpawnTimer(
@@ -60,7 +61,7 @@ namespace Runtime
         }
     }
 
-    class LevelConfiguration
+    public class LevelConfiguration
     {
         [JsonProperty("enemies")]
         public EnemiesConfiguration[] Enemies { get; set; }

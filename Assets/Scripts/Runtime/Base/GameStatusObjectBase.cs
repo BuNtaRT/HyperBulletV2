@@ -5,30 +5,27 @@ namespace Runtime.Base
 {
     public class GameStatusObjectBase : MonoBehaviour
     {
-        protected GameStatus _currentStatus = GameStatus.None;
+        protected GameStatus CurrentStatus = GameStatus.None;
 
         protected virtual void Awake()
         {
-            _currentStatus = GlobalEventsManager.LastGameStatus;
+            CurrentStatus = GlobalEventsManager.LastGameStatus;
             GlobalEventsManager.OnGameStatus.AddListener(OnGameStatusChanged);
         }
 
-        protected virtual void OnGameStatusChanged(GameStatus status) =>
-            _currentStatus = status;
+        protected virtual void OnGameStatusChanged(GameStatus status) => CurrentStatus = status;
     }
-
 
     public class GameStatusBase
     {
-        protected GameStatus _currentStatus;
+        protected GameStatus CurrentStatus;
 
         public GameStatusBase()
         {
-            _currentStatus = GlobalEventsManager.LastGameStatus;
+            CurrentStatus = GlobalEventsManager.LastGameStatus;
             GlobalEventsManager.OnGameStatus.AddListener(OnGameStatusChanged);
         }
 
-        protected virtual void OnGameStatusChanged(GameStatus status) =>
-            _currentStatus = status;
+        protected virtual void OnGameStatusChanged(GameStatus status) => CurrentStatus = status;
     }
 }

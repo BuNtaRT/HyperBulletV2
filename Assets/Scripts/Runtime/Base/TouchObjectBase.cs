@@ -5,62 +5,55 @@ namespace Runtime.Base
 {
     public class TouchObjectBase : MonoBehaviour
     {
-        protected EventTouch _currentTouch;
+        protected EventTouch CurrentTouch;
 
-        protected virtual void Awake() 
+        protected virtual void Awake()
         {
-            _currentTouch = GlobalEventsManager.LastTouch;
+            CurrentTouch = GlobalEventsManager.LastTouch;
             GlobalEventsManager.OnTouch.AddListener(OnTouchChanged);
         }
 
-
-        protected virtual void OnTouchChanged(EventTouch touch) =>
-            _currentTouch = touch;
+        protected virtual void OnTouchChanged(EventTouch touch) => CurrentTouch = touch;
     }
 
     public class TouchBase
     {
-        protected EventTouch _currentTouch;
+        protected EventTouch CurrentTouch;
 
         public TouchBase()
         {
-            _currentTouch = GlobalEventsManager.LastTouch;
+            CurrentTouch = GlobalEventsManager.LastTouch;
             GlobalEventsManager.OnTouch.AddListener(OnTouchChanged);
         }
 
-
-        protected virtual void OnTouchChanged(EventTouch touch) =>
-            _currentTouch = touch;
+        protected virtual void OnTouchChanged(EventTouch touch) => CurrentTouch = touch;
     }
 
     public class TouchGameStatusObjectBase : TouchObjectBase
     {
-        protected GameStatus _currentStatus = GameStatus.None;
+        protected GameStatus CurrentStatus = GameStatus.None;
 
         protected override void Awake()
         {
-            _currentStatus = GlobalEventsManager.LastGameStatus;
+            CurrentStatus = GlobalEventsManager.LastGameStatus;
             GlobalEventsManager.OnGameStatus.AddListener(OnGameStatusChanged);
             base.Awake();
-
         }
 
-        protected virtual void OnGameStatusChanged(GameStatus status) =>
-            _currentStatus = status;
+        protected virtual void OnGameStatusChanged(GameStatus status) => CurrentStatus = status;
     }
 
-    public class TouchGameStatusBase : TouchBase 
+    public class TouchGameStatusBase : TouchBase
     {
-        protected GameStatus _currentStatus;
+        protected GameStatus CurrentStatus;
 
-        protected TouchGameStatusBase(): base()
+        protected TouchGameStatusBase()
+            : base()
         {
-            _currentStatus = GlobalEventsManager.LastGameStatus;
+            CurrentStatus = GlobalEventsManager.LastGameStatus;
             GlobalEventsManager.OnGameStatus.AddListener(OnGameStatusChanged);
         }
 
-        protected virtual void OnGameStatusChanged(GameStatus status) =>
-            _currentStatus = status;
-
+        protected virtual void OnGameStatusChanged(GameStatus status) => CurrentStatus = status;
     }
 }

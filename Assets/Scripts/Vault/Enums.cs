@@ -4,7 +4,7 @@ namespace Vault
     {
         Default = 0,
         TransparentFX = 1,
-        Ignore_Raycast = 2,
+        IgnoreRaycast = 2,
         UI = 5,
     }
 

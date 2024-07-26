@@ -1,24 +1,35 @@
 using UnityEngine;
 using UnityEngine.Playables;
+using UnityEngine.Serialization;
 
 namespace Bonus.Spells
 {
     [CreateAssetMenu(fileName = "New Spell", menuName = "Bonus/Spell")]
-
     public class SpellSO : ScriptableObject
     {
-        public string Id;
-        public int Price;
-        public SpellType Type;
-        public bool Area;
-        public Sprite Ico;
-        public PlayableAsset Animation;
+        [FormerlySerializedAs("Id")]
+        public string id;
+
+        [FormerlySerializedAs("Price")]
+        public int price;
+
+        [FormerlySerializedAs("Type")]
+        public SpellType type;
+
+        [FormerlySerializedAs("Area")]
+        public bool area;
+
+        [FormerlySerializedAs("Ico")]
+        public Sprite ico;
+
+        [FormerlySerializedAs("Animation")]
+        public PlayableAsset animation;
     }
 
-    public enum SpellType 
+    public enum SpellType
     {
-        bullet,
-        hp,
-        gamemode,
+        Bullet,
+        Hp,
+        Gamemode,
     }
 }
