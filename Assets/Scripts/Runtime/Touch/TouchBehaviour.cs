@@ -39,7 +39,7 @@ namespace Runtime.Touch
             }
             else if (!_isEmtyContact)
             {
-                OnMoved(position, ProgressStage.progress);
+                OnMoved(position, ProgressStage.Progress);
             }
         }
 
@@ -52,7 +52,7 @@ namespace Runtime.Touch
                 _isEmtyContact = true;
                 _beganTouch = Vector2.zero;
 
-                OnMoved(position, ProgressStage.ended);
+                OnMoved(position, ProgressStage.Ended);
             }
         }
 

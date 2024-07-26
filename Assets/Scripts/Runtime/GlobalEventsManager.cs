@@ -1,7 +1,5 @@
 using Bonus.Perk;
 using Bonus.Spells;
-using Lib;
-using Runtime.Touch;
 using UnityEngine;
 using UnityEngine.Events;
 using Vault;
@@ -19,6 +17,7 @@ namespace Runtime
             LastGameStatus = status;
             OnGameStatus.Invoke(status);
         }
+
         //---------------------------------------------------------------------------------------------------
 
         //--------------------------------------------------------------------------------------------------- Касания по экарану
@@ -46,7 +45,7 @@ namespace Runtime
         //---------------------------------------------------------------------------------------------------
 
         //--------------------------------------------------------------------------------------------------- Поднятие способности
-        public static SpellSO LastPickupSpell = new SpellSO();
+        public static SpellSO LastPickupSpell;
         public static readonly UnityEvent<SpellSO> OnPickupSpell = new UnityEvent<SpellSO>();
 
         public static void InvokePickupSpell(SpellSO spell)
@@ -54,13 +53,14 @@ namespace Runtime
             LastPickupSpell = spell;
             OnPickupSpell.Invoke(spell);
         }
+
         //---------------------------------------------------------------------------------------------------
 
         //--------------------------------------------------------------------------------------------------- Поднятие перка
-        public static PerkSO LastPickupPerk = new PerkSO();
+        public static PerkSO LastPickupPerk;
         public static readonly UnityEvent<PerkSO> OnPickupPerk = new UnityEvent<PerkSO>();
 
-        public static void InvokPickupPerk(PerkSO perk)
+        public static void InvokePickupPerk(PerkSO perk)
         {
             LastPickupPerk = perk;
             OnPickupPerk.Invoke(perk);
@@ -69,7 +69,8 @@ namespace Runtime
         //---------------------------------------------------------------------------------------------------
 
         //--------------------------------------------------------------------------------------------------- Перемещение игрока
-        public static readonly UnityEvent<EventMovePlayer> OnPlayerMove = new UnityEvent<EventMovePlayer>();
+        public static readonly UnityEvent<EventMovePlayer> OnPlayerMove =
+            new UnityEvent<EventMovePlayer>();
 
         public static void InvokePlayerMove(EventMovePlayer movement) =>
             OnPlayerMove.Invoke(movement);
@@ -79,8 +80,8 @@ namespace Runtime
 
     public struct EventMovePlayer
     {
-        public Vector2[] points;
-        public ProgressStage stage;
+        public Vector2[] Points;
+        public ProgressStage Stage;
     }
 
     public struct EventSwipe
@@ -98,8 +99,8 @@ namespace Runtime
 
     public enum ProgressStage
     {
-        started,
-        progress,
-        ended,
+        Started,
+        Progress,
+        Ended,
     }
 }

@@ -11,6 +11,8 @@ namespace Runtime
     {
         private SpawnerEnemy _spawnerEnemy;
         private Shooting _shooting;
+        private EnemyAvailableBehaviour _availableBehaviour;
+        private SpawnTimer _spawnTimer;
 
         private void Awake()
         {
@@ -19,7 +21,11 @@ namespace Runtime
             //--------------------------- Загрузка конфига уровня
 
             // представим что она уже сделана
-            int enemies = 10;
+            EnemiesConfiguration[] enemies = new EnemiesConfiguration[]
+            {
+                new EnemiesConfiguration { Name = "SimpleEnemyBH", Count = 2 },
+            };
+
             float minSpawnTick = 1f;
             float maxSpawnTick = 1.5f;
 
@@ -28,16 +34,25 @@ namespace Runtime
             LoadPool.DropCache();
             LvlVariables.SetDefaultBulletBehaviour();
 
-            //--------------------------- Инициализация сценариев
+            //--------------------------- Инициализация спавнера
 
+            var availableBehaviour = new EnemyAvailableBehaviour(enemies);
             _spawnerEnemy = new SpawnerEnemy();
-            _shooting = new Shooting();
 
-            _spawnerEnemy.Spawn(new SimpleEnemyBH());
+            _spawnTimer = new SpawnTimer(
+                availableBehaviour,
+                _spawnerEnemy,
+                minSpawnTick,
+                maxSpawnTick
+            );
+
+            //--------------------------- Стрельба
+
+            _shooting = new Shooting();
 
             //--------------------------- Установка дальности пули
 
-            var worldTopRight = mainCamera.ScreenToWorldPoint(
+            Vector3 worldTopRight = mainCamera!.ScreenToWorldPoint(
                 new Vector3(Screen.width, Screen.height, mainCamera.nearClipPlane)
             );
 
@@ -57,7 +72,7 @@ namespace Runtime
         public float MaxTick { get; set; }
     }
 
-    class EnemiesConfiguration
+    public class EnemiesConfiguration
     {
         [JsonProperty("name")]
         public string Name { get; set; }

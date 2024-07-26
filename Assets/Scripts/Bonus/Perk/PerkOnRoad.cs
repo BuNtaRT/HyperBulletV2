@@ -1,4 +1,3 @@
-
 using Lib;
 using Runtime;
 
@@ -23,7 +22,7 @@ namespace Bonus.Perk
 
         public void Pick()
         {
-            GlobalEventsManager.InvokPickupPerk(_perk);
+            GlobalEventsManager.InvokePickupPerk(_perk);
             End();
             ObjectPool.Destroy(TypeObj.Perk, gameObject);
         }

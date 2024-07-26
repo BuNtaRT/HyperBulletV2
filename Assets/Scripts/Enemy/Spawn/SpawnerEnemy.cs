@@ -32,19 +32,24 @@ namespace Enemy.Spawn
 
         private void OnPlayerMoveChanged(EventMovePlayer movement)
         {
-            if (movement.stage == ProgressStage.ended)
+            if (movement.Stage == ProgressStage.Ended)
                 UpdateAngles();
         }
 
         private void UpdateAngles()
         {
-            var worldBottomLeft = _mainCamera!.ScreenToWorldPoint(new Vector3(0, 0, _mainCamera.nearClipPlane));
-            var worldBottomRight =
-                _mainCamera.ScreenToWorldPoint(new Vector3(Screen.width, 0, _mainCamera.nearClipPlane));
-            var worldTopLeft = _mainCamera.ScreenToWorldPoint(new Vector3(0, Screen.height, _mainCamera.nearClipPlane));
-            var worldTopRight =
-                _mainCamera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, _mainCamera.nearClipPlane));
-
+            var worldBottomLeft = _mainCamera!.ScreenToWorldPoint(
+                new Vector3(0, 0, _mainCamera.nearClipPlane)
+            );
+            var worldBottomRight = _mainCamera.ScreenToWorldPoint(
+                new Vector3(Screen.width, 0, _mainCamera.nearClipPlane)
+            );
+            var worldTopLeft = _mainCamera.ScreenToWorldPoint(
+                new Vector3(0, Screen.height, _mainCamera.nearClipPlane)
+            );
+            var worldTopRight = _mainCamera.ScreenToWorldPoint(
+                new Vector3(Screen.width, Screen.height, _mainCamera.nearClipPlane)
+            );
 
             _anglesCoordinate = new[]
             {
@@ -65,7 +70,6 @@ namespace Enemy.Spawn
         {
             var count = _anglesCoordinate.Length;
             var direction = Random.Range(0, 2) == 0 ? -1 : 1;
-
 
             var indexFirst = Random.Range(0, count);
             var indexSecond = (indexFirst + direction + count) % count;
