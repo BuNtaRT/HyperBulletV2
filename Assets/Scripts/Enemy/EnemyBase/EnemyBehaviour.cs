@@ -34,11 +34,8 @@ namespace Enemy.EnemyBase
                 .OnUpdate(OnMoveUpdate);
         }
 
-        //todo: ѕока void, но нужно наверное возвращать поведение пули при столкновении
-
         public TakeBulletEnemyEffect TakeBullet(BulletConfig bullet)
         {
-            //todo: нужно что бы пул€ передавала свой конфиг и от туда брать урон
             TakeBulletEnemyEffect effect = _enemyBehaviour.OnBullet(_state, bullet);
 
             // если нужен эффект с другим уроном, то это можно реализовать в поведении противника
@@ -48,7 +45,7 @@ namespace Enemy.EnemyBase
             if (_state.GetStatus() == EnemyLiveStatus.Death)
                 OnDie();
 
-            return TakeBulletEnemyEffect.None;
+            return effect;
         }
 
         public void EnterShield() => _enemyBehaviour.OnEnterShield(_state);
@@ -70,7 +67,7 @@ namespace Enemy.EnemyBase
             float knockbackDuration = 1f;
 
             Vector2 direction = ((Vector2)transform.position).normalized * -1;
-            Vector2 knockbackPosition = (Vector2)transform.position + direction * knockbackDistance;
+            Vector2 knockbackPosition = (Vector2)transform.position - direction * knockbackDistance;
             transform
                 .DOMove(knockbackPosition, knockbackDuration)
                 .SetEase(Ease.OutQuad)

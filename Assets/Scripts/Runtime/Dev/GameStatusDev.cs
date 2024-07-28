@@ -8,11 +8,14 @@ namespace Runtime.Dev
         private GameStatus _gameStatus = GameStatus.Action;
         public GameStatus gameStatus = GameStatus.Action;
 
+        public float gameTime = 1;
 
         private void Awake()
         {
             _gameStatus = gameStatus;
             GlobalEventsManager.InvokeGameStatus(gameStatus);
+
+            Time.timeScale = gameTime;
         }
 
         private void FixedUpdate()

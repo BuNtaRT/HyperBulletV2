@@ -13,7 +13,6 @@ namespace Bullet.BulletBase
 
         private BulletState _state;
         private IBulletBehaviour _bulletBehaviour;
-        private Transform _bulletCore;
 
         private void Awake()
         {
@@ -24,10 +23,8 @@ namespace Bullet.BulletBase
         {
             _bulletBehaviour = behaviour;
 
-            _bulletCore = transform.GetChild(0);
-
             BulletConfig config = behaviour.GetConfig();
-            _state = new BulletState(_bulletCore, config);
+            _state = new BulletState(transform, config);
 
             Vector2 bulletTarget = target.normalized * distance;
 
@@ -47,11 +44,15 @@ namespace Bullet.BulletBase
             EnemyBehaviour enemyBehaviour = enemy.GetComponent<EnemyBehaviour>();
             TakeBulletEnemyEffect enemyEffect = enemyBehaviour.TakeBullet(_state.GetConfig());
 
+            // по хорошему тут можно сделать возврат интерфеса для изменения пули, но это если эффектов будет больше 3 хотя бы
             if (enemyEffect == TakeBulletEnemyEffect.None)
             {
                 bool destroyConfirm = _bulletBehaviour.OnHit(_state, transform);
                 if (destroyConfirm)
+                {
                     _bulletBehaviour.OnDie(_state, transform, false);
+                    Destroy();
+                }
             }
             if (enemyEffect == TakeBulletEnemyEffect.Ricochet)
                 Ricochet();
@@ -101,6 +102,12 @@ namespace Bullet.BulletBase
         private void CompleteMove()
         {
             _bulletBehaviour.OnDie(_state, transform, true);
+            Destroy();
+        }
+
+        private void Destroy()
+        {
+            _moveTween.Kill();
             ObjectPool.Destroy(TypeObj.Bullet, gameObject);
         }
     }

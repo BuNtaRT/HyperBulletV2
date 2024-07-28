@@ -34,6 +34,7 @@ namespace Enemy.EnemyBase
 
         public EnemyLiveStatus TakeDamage(int damage)
         {
+            Debug.Log("TakeDamage");
             _hp = Mathf.Clamp(_hp - damage, 0, 1000);
             _status = _hp != 0 ? EnemyLiveStatus.Alive : EnemyLiveStatus.Death;
             return _status;
@@ -64,7 +65,6 @@ namespace Enemy.EnemyBase
             _body = _enemyObject.Find("Body").GetComponent<SpriteRenderer>();
             _body.color = color;
         }
-
     }
 
     public struct EnemyConfig

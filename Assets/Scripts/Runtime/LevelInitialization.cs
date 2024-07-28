@@ -24,7 +24,7 @@ namespace Runtime
             // представим что она уже сделана
             EnemiesConfiguration[] enemies = new EnemiesConfiguration[]
             {
-                new EnemiesConfiguration { Name = "SimpleEnemyBH", Count = 2 },
+                new EnemiesConfiguration { Name = "SimpleEnemyBh", Count = 2 },
             };
 
             float minSpawnTick = 1f;
