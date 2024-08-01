@@ -1,4 +1,5 @@
-﻿using Enemy.Behaviours;
+﻿using Bonus;
+using Enemy.Behaviours;
 using Enemy.Spawn;
 using Lib;
 using Newtonsoft.Json;
@@ -9,10 +10,13 @@ namespace Runtime
 {
     public class LevelInitialization : MonoBehaviour
     {
-        private SpawnerEnemy _spawnerEnemy;
         private Shooting _shooting;
         private EnemyAvailableBehaviour _availableBehaviour;
+        private SpawnerEnemy _spawnerEnemy;
         private SpawnTimer _spawnTimer;
+
+        private BonusSpawner _bonusSpawner;
+        private BonusClickHandler _bonusClickHandler;
 
         private void Awake()
         {
@@ -58,6 +62,11 @@ namespace Runtime
             );
 
             LvlVariables.BulletRadius = Vector2.Distance(worldTopRight, Vector2.zero) + 1f;
+
+            //--------------------------- Бонусы
+
+            _bonusSpawner = new BonusSpawner();
+            _bonusClickHandler = new BonusClickHandler();
         }
     }
 

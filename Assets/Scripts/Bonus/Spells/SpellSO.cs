@@ -24,6 +24,12 @@ namespace Bonus.Spells
 
         [FormerlySerializedAs("Animation")]
         public PlayableAsset animation;
+
+        [FormerlySerializedAs("MainColor")]
+        public Color mainColor;
+
+        [FormerlySerializedAs("SecondColor")]
+        public Color secondColor;
     }
 
     public enum SpellType

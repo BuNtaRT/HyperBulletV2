@@ -9,7 +9,7 @@ namespace Bullet
     {
         public BulletConfig GetConfig()
         {
-            BulletSO bullet = LoadPool.Load<BulletSO>(ResourcesPath.BULLET_SO + "SimpleBullet");
+            BulletSO bullet = LoadPool.Load<BulletSO>(ResourcesPath.BulletSO("SimpleBullet"));
             return new BulletConfig(bullet);
         }
 

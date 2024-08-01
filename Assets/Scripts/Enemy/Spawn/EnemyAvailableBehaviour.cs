@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Enemy.Behaviours;
 using Enemy.EnemyBase;
 using Runtime;
-using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace Enemy.Spawn
@@ -23,20 +21,10 @@ namespace Enemy.Spawn
             int index = Random.Range(0, _behaviorals.Count);
             EnemiesConfiguration randomBehaviour = _behaviorals[index];
 
-            string fullName = $"Enemy.Behaviours.{randomBehaviour.Name}";
-            Type type = Type.GetType(fullName);
-
-            IEnemyBehavioral behavioral;
-
-            if (type != null && typeof(IEnemyBehavioral).IsAssignableFrom(type))
-            {
-                behavioral = (IEnemyBehavioral)Activator.CreateInstance(type);
-            }
-            else
-            {
-                behavioral = new SimpleEnemyBh();
-                Debug.LogError($"name '{fullName}' not found!!");
-            }
+            IEnemyBehavioral behavioral = Instance.GetByName<IEnemyBehavioral>(
+                $"Enemy.Behaviours.{randomBehaviour.Name}",
+                new SimpleEnemyBh()
+            );
 
             randomBehaviour.Count--;
             if (randomBehaviour.Count == 0)

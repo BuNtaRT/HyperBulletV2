@@ -62,16 +62,23 @@ namespace Enemy.EnemyBase
 
             _moveTween.Kill();
 
+            Vector2 diePosition = transform.position;
             //todo: можно кастомизировать дистанцию и время отлета назад, а так же Ease для каждого типа противника в конфиге
-            float knockbackDistance = 2f;
-            float knockbackDuration = 1f;
+            float knockbackDistance = 1f;
+            float knockbackDuration = 0.2f;
 
             Vector2 direction = ((Vector2)transform.position).normalized * -1;
             Vector2 knockbackPosition = (Vector2)transform.position - direction * knockbackDistance;
             transform
                 .DOMove(knockbackPosition, knockbackDuration)
                 .SetEase(Ease.OutQuad)
-                .OnComplete(() => ObjectPool.Destroy(TypeObj.Enemy, gameObject));
+                .OnComplete(() => Destroy(diePosition));
+        }
+
+        private void Destroy(Vector2 position)
+        {
+            GlobalEventsManager.InvokeEnemyDie(position);
+            ObjectPool.Destroy(TypeObj.Enemy, gameObject);
         }
     }
 

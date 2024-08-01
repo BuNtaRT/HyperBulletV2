@@ -8,20 +8,15 @@ namespace Bonus.Perk
     {
         public PerkRarity rarity;
 
-        [FormerlySerializedAs("NameRU")]
-        public string nameRu;
+        [FormerlySerializedAs("Name")]
+        public string nameKey;
 
-        [FormerlySerializedAs("NameEU")]
-        public string nameEu;
-
-        [FormerlySerializedAs("DescriptionRU")]
-        public string descriptionRu;
-
-        [FormerlySerializedAs("DescriptionEU")]
-        public string descriptionEu;
+        [FormerlySerializedAs("Description")]
+        public string descriptionKey;
 
         [FormerlySerializedAs("Ico")]
         public Sprite ico;
+
         public PerkName perkName;
 
         [FormerlySerializedAs("GradientParticle")]
@@ -29,32 +24,34 @@ namespace Bonus.Perk
 
         [FormerlySerializedAs("MainColor")]
         public Color mainColor;
+
+        [FormerlySerializedAs("SecondColor")]
+        public Color secondColor;
     }
 
     public enum PerkName : byte
     {
-        // названия классов, точ в точ
         Prediction,
-        ExtraSphere,
-        FastBullet,
-        SlowMoBullet,
-        TwoXPowerBullet,
-        BurstingBullet,
-        RicochetBullet,
-        SlowMoShoot,
-        SuperPower,
-        SuperDiscontr,
-        ExplBullet,
-        Clone,
-        Healt,
-        SuperPowerShealt,
-        EmiBullet,
-        TwoXDamage,
+        // ExtraSphere,
+        // FastBullet,
+        // SlowMoBullet,
+        // TwoXPowerBullet,
+        // BurstingBullet,
+        // RicochetBullet,
+        // SlowMoShoot,
+        // SuperPower,
+        // SuperDiscontr,
+        // ExplBullet,
+        // Clone,
+        // Healt,
+        // SuperPowerShealt,
+        // EmiBullet,
+        // TwoXDamage,
     }
 
     public enum PerkRarity : byte
     {
-        Standart,
+        Standard,
         Rare,
         Epic,
         Legendary

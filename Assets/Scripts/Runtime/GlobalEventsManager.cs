@@ -76,6 +76,14 @@ namespace Runtime
             OnPlayerMove.Invoke(movement);
 
         //---------------------------------------------------------------------------------------------------
+
+        //--------------------------------------------------------------------------------------------------- Уничтожение противника
+        public static readonly UnityEvent<Vector2> OnEnemyDie = new UnityEvent<Vector2>();
+
+        public static void InvokeEnemyDie(Vector2 enemyPosition) =>
+            OnEnemyDie.Invoke(enemyPosition);
+
+        //---------------------------------------------------------------------------------------------------
     }
 
     public struct EventMovePlayer
