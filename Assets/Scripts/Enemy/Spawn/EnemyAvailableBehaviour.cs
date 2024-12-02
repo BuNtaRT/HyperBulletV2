@@ -3,6 +3,7 @@ using System.Linq;
 using Enemy.Behaviours;
 using Enemy.EnemyBase;
 using Runtime;
+using Runtime.LevelLoader;
 using Random = UnityEngine.Random;
 
 namespace Enemy.Spawn

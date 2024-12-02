@@ -26,9 +26,10 @@ namespace Bullet.BulletBase
             BulletConfig config = behaviour.GetConfig();
             _state = new BulletState(transform, config);
 
-            Vector2 bulletTarget = target.normalized * distance;
+            GlobalEventsManager.InvokeBulletCreate(_state);
 
-            float duration = Vector2.Distance(transform.position, bulletTarget) / config.Speed;
+            Vector2 bulletTarget = target.normalized * distance;
+            float duration = Vector2.Distance(transform.position, bulletTarget) / _state.GetSpeed();
 
             _moveTween = transform
                 .DOMove(bulletTarget, duration)
@@ -54,6 +55,7 @@ namespace Bullet.BulletBase
                     Destroy();
                 }
             }
+
             if (enemyEffect == TakeBulletEnemyEffect.Ricochet)
                 Ricochet();
         }

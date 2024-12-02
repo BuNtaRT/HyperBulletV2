@@ -14,6 +14,7 @@ namespace Runtime
 
         public static string GetByKey(string key)
         {
+            return "key " + key;
             if (stringKeys.TryGetValue(key, out string value))
                 return value;
 

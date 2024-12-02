@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Lib
 {
@@ -22,6 +23,14 @@ namespace Lib
             return array[Random.Range(0, array.Count)];
         }
 
+        public static KeyValuePair<K, V> GetRandom<K, V>(Dictionary<K, V> dictionary)
+        {
+            if (dictionary == null || dictionary.Count == 0)
+                throw new System.Exception("GetRandom array null");
+
+            return new List<KeyValuePair<K, V>>(dictionary)[Random.Range(0, dictionary.Count)];
+        }
+
         public static TKey GetRandomByFalseValue<TKey>(Dictionary<TKey, bool> dictionary)
         {
             if (dictionary == null || dictionary.Count == 0)
@@ -37,6 +46,7 @@ namespace Lib
                 dictionary[finalPair.Key] = false;
                 return finalPair.Key;
             }
+
             throw new System.Exception("GetRandom fit entry not found");
         }
     }

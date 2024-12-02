@@ -1,43 +1,53 @@
 ﻿using Runtime;
 using UnityEngine;
 using UnityEngine.UI;
+using Vault;
 
 namespace Bonus.Perk.UI
 {
-    public class PerkShower : MonoBehaviour
+    public class PerkUIShower : MonoBehaviour
     {
-        [SerializeField]
-        private GameObject perkWindow;
+        [SerializeField] private GameObject perkWindow;
 
-        [SerializeField]
-        private Image icon;
+        [SerializeField] private Image icon;
+        [SerializeField] private Image background;
 
-        [SerializeField]
-        private Image background;
+        [SerializeField] private ParticleSystem trail1;
+        [SerializeField] private ParticleSystem trail2;
 
-        [SerializeField]
-        private ParticleSystem trail1;
+        [SerializeField] private Text title;
+        [SerializeField] private Text description;
 
-        [SerializeField]
-        private ParticleSystem trail2;
-
-        [SerializeField]
-        private Text title;
-
-        [SerializeField]
-        private Text description;
+        private Vector3 _startTrail1Position;
+        private Vector3 _startTrail2Position;
 
         private void Awake()
         {
+            _startTrail1Position = trail1.transform.localPosition;
+            _startTrail2Position = trail2.transform.localPosition;
             GlobalEventsManager.OnPickupPerk.AddListener(OnPickupPerkChanged);
         }
 
-        private void OnPickupPerkChanged(PerkSO perk)
+        public void CloseBonusWindow()
         {
+            GlobalEventsManager.InvokeGameStatus(GameStatus.Action);
+            trail1.transform.localPosition = _startTrail1Position;
+            trail2.transform.localPosition = _startTrail2Position;
+            perkWindow.SetActive(false);
+        }
+
+        private void OnPickupPerkChanged(PerkSO perk, bool confirmed)
+        {
+            if (confirmed)
+                return;
+
             var gradient = GetGradient(perk);
 
             title.text = Localization.GetByKey(perk.nameKey);
             description.text = Localization.GetByKey(perk.descriptionKey);
+
+            title.color = perk.mainColor;
+
             var effect1 = trail1.colorOverLifetime;
             effect1.color = gradient;
             var effect2 = trail2.colorOverLifetime;

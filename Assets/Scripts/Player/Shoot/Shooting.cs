@@ -2,25 +2,33 @@ using Bullet.BulletBase;
 using Lib;
 using Runtime;
 using Runtime.Base;
+using UnityEngine;
 using Vault;
 
 namespace Player.Shoot
 {
     public class Shooting : TouchGameStatusBase
     {
-        private int _ammo = 500;
+        private float _energy = 500;
 
         //todo: передавать патроны после загрузки сцены
         public Shooting()
-            : base() { }
+            : base()
+        {
+        }
 
         protected override void OnTouchChanged(EventTouch touch)
         {
-            base.OnTouchChanged(touch);
-            if (CurrentStatus != GameStatus.Action || _ammo < LvlVariables.BulletCost)
+            if (touch.Collision.CompareTag(GameTags.BONUS))
                 return;
 
-            _ammo -= LvlVariables.BulletCost;
+            base.OnTouchChanged(touch);
+            if (CurrentStatus != GameStatus.Action || _energy < LvlVariables.BulletCost)
+                return;
+
+            Debug.Log("bulletCost - " + LvlVariables.BulletCost);
+
+            _energy -= LvlVariables.BulletCost;
             var bullet = ObjectPool.SpawnObj(TypeObj.Bullet, LvlVariables.PlayerPosition);
             var behaviour = bullet.GetComponent<BulletBehavior>();
 

@@ -26,7 +26,9 @@ namespace Enemy.EnemyBase
             _state = new EnemyState(transform, config);
 
             float duration =
-                Vector2.Distance(transform.position, LvlVariables.PlayerPosition) / config.Speed;
+                Vector2.Distance(transform.position, LvlVariables.PlayerPosition) / _state.GetSpeed();
+
+            GlobalEventsManager.InvokeEnemyCreate(_state);
 
             _moveTween = transform
                 .DOMove(LvlVariables.PlayerPosition, duration)

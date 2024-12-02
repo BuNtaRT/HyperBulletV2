@@ -6,32 +6,27 @@ namespace Bonus.Perk
     [CreateAssetMenu(fileName = "New Perk", menuName = "Bonus/Perk")]
     public class PerkSO : ScriptableObject
     {
-        public PerkRarity rarity;
+        public PerkRarity defaultRarity;
 
-        [FormerlySerializedAs("Name")]
-        public string nameKey;
+        [FormerlySerializedAs("Name")] public string nameKey;
 
-        [FormerlySerializedAs("Description")]
-        public string descriptionKey;
+        [FormerlySerializedAs("Description")] public string descriptionKey;
 
-        [FormerlySerializedAs("Ico")]
-        public Sprite ico;
+        [FormerlySerializedAs("Ico")] public Sprite ico;
 
         public PerkName perkName;
 
         [FormerlySerializedAs("GradientParticle")]
         public Gradient gradientParticle;
 
-        [FormerlySerializedAs("MainColor")]
-        public Color mainColor;
+        [FormerlySerializedAs("MainColor")] public Color mainColor;
 
-        [FormerlySerializedAs("SecondColor")]
-        public Color secondColor;
+        [FormerlySerializedAs("SecondColor")] public Color secondColor;
     }
 
     public enum PerkName : byte
     {
-        Prediction,
+        Discount,
         // ExtraSphere,
         // FastBullet,
         // SlowMoBullet,

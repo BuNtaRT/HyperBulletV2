@@ -3,7 +3,7 @@ using Runtime;
 
 namespace Bonus.Perk
 {
-    public class PerkOnRoad : ItemOnRoadAnimationBase, IPickable
+    public class PerkBonus : ItemOnRoadAnimationBase, IPickable
     {
         private PerkSO _perk;
 
@@ -16,7 +16,7 @@ namespace Bonus.Perk
 
         public void Pick()
         {
-            GlobalEventsManager.InvokePickupPerk(_perk);
+            GlobalEventsManager.InvokePickupPerk(_perk, false);
             Destroy();
         }
 

@@ -4,6 +4,7 @@ using Vault;
 
 namespace Bonus
 {
+    //обрабатывает нажатия и отлавливает нажатия на бонусы
     public class BonusClickHandler : TouchBase
     {
         protected override void OnTouchChanged(EventTouch touch)

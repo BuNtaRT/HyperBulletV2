@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using Bonus.Perk;
 using Bullet;
 using Bullet.BulletBase;
 using UnityEngine;
@@ -8,10 +10,19 @@ namespace Runtime
     {
         public static Vector2 PlayerPosition;
 
-        // цена выстрела с текущей модификацией
-        public static int BulletCost = 1;
+        //--------------------------- Цены пули
+        private static float _bulletCost = 1f;
 
-        public static void SetDefaultBulletCost() => BulletCost = 1;
+        public static float BulletCost
+        {
+            get => _bulletCost;
+            private set { }
+        }
+
+        public static void ResetBulletCost() => _bulletCost = 1f;
+        public static void SetBulletCost(float cost) => _bulletCost = cost;
+
+        //--------------------------- Поведение и фундаметальные параметры пули
 
         public static IBulletBehaviour BulletBehaviour;
 
@@ -21,7 +32,12 @@ namespace Runtime
 
         public static int BonusSpawnChance = 100;
 
-        public static string[] AvailablePerks = new[] { "PredictionSO" };
+
         public static string[] AvailableSpells;
+
+
+        //--------------------------- Перки
+
+        public static Dictionary<string, PerkRarity?> AvailablePerks;
     }
 }

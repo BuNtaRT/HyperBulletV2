@@ -10,7 +10,7 @@ namespace Runtime.Touch
         private Vector2 _beganTouch = Vector2.zero;
 
         private Camera _camera;
-        private bool _isEmtyContact = true;
+        private bool _isEmptyContact = true;
 
         private void Awake()
         {
@@ -33,11 +33,11 @@ namespace Runtime.Touch
         {
             Vector2 position = _input.Player.Position.ReadValue<Vector2>();
 
-            if (_isEmtyContact && IsCorrectTouch(_beganTouch, position))
+            if (_isEmptyContact && IsCorrectTouch(_beganTouch, position))
             {
-                _isEmtyContact = false;
+                _isEmptyContact = false;
             }
-            else if (!_isEmtyContact)
+            else if (!_isEmptyContact)
             {
                 OnMoved(position, ProgressStage.Progress);
             }
@@ -49,7 +49,7 @@ namespace Runtime.Touch
 
             if (IsCorrectTouch(_beganTouch, position))
             {
-                _isEmtyContact = true;
+                _isEmptyContact = true;
                 _beganTouch = Vector2.zero;
 
                 OnMoved(position, ProgressStage.Ended);

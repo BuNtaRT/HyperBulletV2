@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 using Vault;
 
 namespace Runtime.Dev
@@ -10,12 +11,20 @@ namespace Runtime.Dev
 
         public float gameTime = 1;
 
+        public bool ShowEnergy = false;
+        public Text EnergyScreen;
+
         private void Awake()
         {
             _gameStatus = gameStatus;
             GlobalEventsManager.InvokeGameStatus(gameStatus);
 
             Time.timeScale = gameTime;
+
+            if (ShowEnergy)
+            {
+                EnergyScreen.transform.gameObject.SetActive(true);
+            }
         }
 
         private void FixedUpdate()
@@ -25,6 +34,8 @@ namespace Runtime.Dev
                 _gameStatus = gameStatus;
                 GlobalEventsManager.InvokeGameStatus(gameStatus);
             }
+
+            EnergyScreen.text = LvlVariables.BulletCost.ToString();
         }
     }
 }

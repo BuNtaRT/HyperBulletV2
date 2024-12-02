@@ -33,8 +33,9 @@ namespace Bonus
 
         private void SpawnPerk(Vector2 position)
         {
-            var perkName = ArrayTools.GetRandom(LvlVariables.AvailablePerks);
-            PerkSO perk = LoadPool.Load<PerkSO>(ResourcesPath.PerkSO(perkName));
+            var perkNameLevel = ArrayTools.GetRandom(LvlVariables.AvailablePerks);
+            Debug.Log(perkNameLevel.Key);
+            PerkSO perk = LoadPool.Load<PerkSO>(ResourcesPath.PerkSO(perkNameLevel.Key));
             // IPerk perk = Instance.GetByName<IPerk>(
             //     $"Bonus.Perks.{ArrayTools.GetRandom(LvlVariables.AvailablePerks)}",
             //     new DefaultPerk()
@@ -42,7 +43,7 @@ namespace Bonus
             if (perk)
             {
                 var perkObject = ObjectPool.SpawnObj(TypeObj.Perk, position);
-                perkObject.GetComponent<PerkOnRoad>().Set(perk);
+                perkObject.GetComponent<PerkBonus>().Set(perk);
             }
         }
 

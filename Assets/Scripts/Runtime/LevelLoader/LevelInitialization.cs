@@ -1,12 +1,14 @@
-﻿using Bonus;
-using Enemy.Behaviours;
+﻿using System.Collections.Generic;
+using Bonus;
+using Bonus.Combiner;
+using Bonus.Perk;
 using Enemy.Spawn;
 using Lib;
 using Newtonsoft.Json;
 using Player.Shoot;
 using UnityEngine;
 
-namespace Runtime
+namespace Runtime.LevelLoader
 {
     public class LevelInitialization : MonoBehaviour
     {
@@ -18,9 +20,14 @@ namespace Runtime
         private BonusSpawner _bonusSpawner;
         private BonusClickHandler _bonusClickHandler;
 
+        private LifecycleEffectCombiner _effectCombiner;
+
         private void Awake()
         {
             Camera mainCamera = Camera.main;
+
+            //--------------------------- todo: загрузка эффектов на уровне
+
 
             //--------------------------- Загрузка конфига уровня
 
@@ -63,31 +70,36 @@ namespace Runtime
 
             LvlVariables.BulletRadius = Vector2.Distance(worldTopRight, Vector2.zero) + 1f;
 
+            //--------------------------- Перки
+
+            // LvlVariables.AvailablePerks = PerkIOOperator.GetActivePerks();
+            LvlVariables.AvailablePerks = new Dictionary<string, PerkRarity?>()
+                { { PerkName.Discount.ToString(), PerkRarity.Standard } };
+
             //--------------------------- Бонусы
 
             _bonusSpawner = new BonusSpawner();
             _bonusClickHandler = new BonusClickHandler();
+
+            //--------------------------- Комбинатор
+
+            _effectCombiner = new LifecycleEffectCombiner();
         }
     }
 
     public class LevelConfiguration
     {
-        [JsonProperty("enemies")]
-        public EnemiesConfiguration[] Enemies { get; set; }
+        [JsonProperty("enemies")] public EnemiesConfiguration[] Enemies { get; set; }
 
-        [JsonProperty("minTick")]
-        public float MinTick { get; set; }
+        [JsonProperty("minTick")] public float MinTick { get; set; }
 
-        [JsonProperty("maxTick")]
-        public float MaxTick { get; set; }
+        [JsonProperty("maxTick")] public float MaxTick { get; set; }
     }
 
     public class EnemiesConfiguration
     {
-        [JsonProperty("name")]
-        public string Name { get; set; }
+        [JsonProperty("name")] public string Name { get; set; }
 
-        [JsonProperty("came")]
-        public int Count { get; set; }
+        [JsonProperty("count")] public int Count { get; set; }
     }
 }
