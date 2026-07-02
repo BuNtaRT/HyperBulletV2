@@ -1,5 +1,5 @@
+using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 using Vault;
 
 namespace Runtime.Dev
@@ -12,7 +12,7 @@ namespace Runtime.Dev
         public float gameTime = 1;
 
         public bool ShowEnergy = false;
-        public Text EnergyScreen;
+        public TextMeshProUGUI EnergyScreen;
 
         private void Awake()
         {

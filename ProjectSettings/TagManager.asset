@@ -50,3 +50,18 @@ TagManager:
   - name: UI
     uniqueID: 2205239031
     locked: 0
+  - name: Bonus
+    uniqueID: 3616984455
+    locked: 0
+  - name: Player
+    uniqueID: 1140858995
+    locked: 0
+  - name: Enemy
+    uniqueID: 3615236297
+    locked: 0
+  - name: Spells
+    uniqueID: 1060440435
+    locked: 0
+  - name: Effects
+    uniqueID: 3793082109
+    locked: 0

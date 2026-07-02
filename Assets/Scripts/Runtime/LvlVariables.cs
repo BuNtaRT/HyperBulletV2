@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Bonus;
 using Bonus.Perk;
 using Bullet;
 using Bullet.BulletBase;
@@ -15,11 +16,12 @@ namespace Runtime
 
         public static float BulletCost
         {
-            get => _bulletCost;
-            private set { }
+            get { return _bulletCost; }
+            private set { _bulletCost = value; }
         }
 
         public static void ResetBulletCost() => _bulletCost = 1f;
+
         public static void SetBulletCost(float cost) => _bulletCost = cost;
 
         //--------------------------- Поведение и фундаметальные параметры пули
@@ -32,12 +34,14 @@ namespace Runtime
 
         public static int BonusSpawnChance = 100;
 
+        //--------------------------- Спелы
 
-        public static string[] AvailableSpells;
+        public static Dictionary<string, BonusLevel?> AvailableSpells;
 
+        public static readonly int AvailableSpellsCount = 4;
 
         //--------------------------- Перки
 
-        public static Dictionary<string, PerkRarity?> AvailablePerks;
+        public static Dictionary<string, BonusLevel?> AvailablePerks;
     }
 }

@@ -2,6 +2,7 @@
 using Bonus;
 using Bonus.Combiner;
 using Bonus.Perk;
+using Bonus.Spells;
 using Enemy.Spawn;
 using Lib;
 using Newtonsoft.Json;
@@ -73,8 +74,17 @@ namespace Runtime.LevelLoader
             //--------------------------- Перки
 
             // LvlVariables.AvailablePerks = PerkIOOperator.GetActivePerks();
-            LvlVariables.AvailablePerks = new Dictionary<string, PerkRarity?>()
-                { { PerkName.Discount.ToString(), PerkRarity.Standard } };
+            LvlVariables.AvailablePerks = new Dictionary<string, BonusLevel?>()
+            {
+                { PerkType.Discount.ToString(), BonusLevel.First }
+            };
+
+            //--------------------------- Спелы
+
+            LvlVariables.AvailableSpells = new Dictionary<string, BonusLevel?>()
+            {
+                { SpellType.SwordThrow.ToString(), BonusLevel.First }
+            };
 
             //--------------------------- Бонусы
 
@@ -89,17 +99,22 @@ namespace Runtime.LevelLoader
 
     public class LevelConfiguration
     {
-        [JsonProperty("enemies")] public EnemiesConfiguration[] Enemies { get; set; }
+        [JsonProperty("enemies")]
+        public EnemiesConfiguration[] Enemies { get; set; }
 
-        [JsonProperty("minTick")] public float MinTick { get; set; }
+        [JsonProperty("minTick")]
+        public float MinTick { get; set; }
 
-        [JsonProperty("maxTick")] public float MaxTick { get; set; }
+        [JsonProperty("maxTick")]
+        public float MaxTick { get; set; }
     }
 
     public class EnemiesConfiguration
     {
-        [JsonProperty("name")] public string Name { get; set; }
+        [JsonProperty("name")]
+        public string Name { get; set; }
 
-        [JsonProperty("count")] public int Count { get; set; }
+        [JsonProperty("count")]
+        public int Count { get; set; }
     }
 }

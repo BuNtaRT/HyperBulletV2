@@ -7,10 +7,8 @@ namespace Bonus.Perk.Variations
 {
     public class Discount : PerkBase, ICombinableEffect
     {
-        public Discount() : base(PerkName.Discount.ToString())
-        {
-        }
-
+        public Discount()
+            : base(PerkType.Discount.ToString()) { }
 
         public void Init()
         {
@@ -22,16 +20,10 @@ namespace Bonus.Perk.Variations
             LvlVariables.ResetBulletCost();
         }
 
-        public void OnCreatedBullet(BulletState bullet)
-        {
-        }
+        public void OnCreatedBullet(BulletState bullet) { }
 
-        public void OnCreatedEnemy(EnemyState enemy)
-        {
-        }
+        public void OnCreatedEnemy(EnemyState enemy) { }
 
-        public void OnHitting(EventBulletHitting enemy)
-        {
-        }
+        public void OnHitting(EventBulletHitting enemy) { }
     }
 }

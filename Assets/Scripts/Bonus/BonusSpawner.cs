@@ -17,7 +17,7 @@ namespace Bonus
         private void OnEnemyDie(Vector2 enemyPosition)
         {
             int random = Random.Range(0, 101);
-            SpawnPerk(enemyPosition);
+            SpawnSpell(enemyPosition);
             // if (LvlVariables.BonusSpawnChance > random)
             // {
             // random = Random.Range(0, 101);
@@ -50,7 +50,9 @@ namespace Bonus
         private void SpawnSpell(Vector2 position)
         {
             var spellName = ArrayTools.GetRandom(LvlVariables.AvailableSpells);
-            SpellSO spell = LoadPool.Load<SpellSO>(ResourcesPath.SpellSO(spellName));
+            Debug.Log(spellName.Key);
+
+            SpellSO spell = LoadPool.Load<SpellSO>(ResourcesPath.SpellSO(spellName.Key));
 
             if (spell)
             {

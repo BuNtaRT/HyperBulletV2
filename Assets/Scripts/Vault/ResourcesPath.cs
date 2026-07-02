@@ -6,6 +6,6 @@
 
         public static string PerkSO(string perkPath) => $"Bonus/Perks/{perkPath}SO";
 
-        public static string SpellSO(string spellPath) => $"Bonus/Spells/{spellPath}";
+        public static string SpellSO(string spellPath) => $"Bonus/Spells/{spellPath}SO";
     }
 }

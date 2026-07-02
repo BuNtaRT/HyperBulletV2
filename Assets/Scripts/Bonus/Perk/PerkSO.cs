@@ -6,25 +6,26 @@ namespace Bonus.Perk
     [CreateAssetMenu(fileName = "New Perk", menuName = "Bonus/Perk")]
     public class PerkSO : ScriptableObject
     {
-        public PerkRarity defaultRarity;
+        public BonusRarity rarity;
 
-        [FormerlySerializedAs("Name")] public string nameKey;
+        public byte maxLevel;
 
-        [FormerlySerializedAs("Description")] public string descriptionKey;
+        public string nameKey;
 
-        [FormerlySerializedAs("Ico")] public Sprite ico;
+        public string descriptionKey;
 
-        public PerkName perkName;
+        public Sprite ico;
 
-        [FormerlySerializedAs("GradientParticle")]
+        public PerkType type;
+
         public Gradient gradientParticle;
 
-        [FormerlySerializedAs("MainColor")] public Color mainColor;
+        public Color mainColor;
 
-        [FormerlySerializedAs("SecondColor")] public Color secondColor;
+        public Color secondColor;
     }
 
-    public enum PerkName : byte
+    public enum PerkType : byte
     {
         Discount,
         // ExtraSphere,
@@ -42,13 +43,5 @@ namespace Bonus.Perk
         // SuperPowerShealt,
         // EmiBullet,
         // TwoXDamage,
-    }
-
-    public enum PerkRarity : byte
-    {
-        Standard,
-        Rare,
-        Epic,
-        Legendary
     }
 }

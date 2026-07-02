@@ -16,22 +16,24 @@ namespace Runtime.Touch
         {
             _camera = Camera.main;
             _input = new InputScheme();
-
-            _input.Player.Contact.started += OnStartContact;
-            _input.Player.Contact.canceled += OnEndContact;
-            _input.Player.Position.performed += OnPosition;
-            _input.Player.Tap.canceled += OnTap;
         }
 
         private void OnStartContact(InputAction.CallbackContext context)
         {
-            Vector2 contact = _input.Player.Position.ReadValue<Vector2>();
+            Debug.Log("OnStartContact ");
+
+            Vector2 contact = _camera.ScreenToWorldPoint(
+                _input.Player.Position.ReadValue<Vector2>()
+            );
             _beganTouch = contact;
+            OnMoved(contact, ProgressStage.Started);
         }
 
         private void OnPosition(InputAction.CallbackContext context)
         {
-            Vector2 position = _input.Player.Position.ReadValue<Vector2>();
+            Vector2 position = _camera.ScreenToWorldPoint(
+                _input.Player.Position.ReadValue<Vector2>()
+            );
 
             if (_isEmptyContact && IsCorrectTouch(_beganTouch, position))
             {
@@ -45,7 +47,11 @@ namespace Runtime.Touch
 
         private void OnEndContact(InputAction.CallbackContext context)
         {
-            Vector2 position = _input.Player.Position.ReadValue<Vector2>();
+            Debug.Log("OnEndContact ");
+
+            Vector2 position = _camera.ScreenToWorldPoint(
+                _input.Player.Position.ReadValue<Vector2>()
+            );
 
             if (IsCorrectTouch(_beganTouch, position))
             {
@@ -63,6 +69,7 @@ namespace Runtime.Touch
             RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction);
 
             EventTouch touch = new EventTouch() { Collision = hit.transform, Position = hit.point };
+            Debug.Log(touch.Position);
             OnTouch(touch);
         }
 

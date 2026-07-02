@@ -7,8 +7,6 @@ namespace Enemy.EnemyBase
         private readonly Transform _enemyObject;
         private readonly EnemyConfig _config;
 
-        private SpriteRenderer _body;
-
         private float _speed;
         private int _hp;
 
@@ -19,11 +17,8 @@ namespace Enemy.EnemyBase
             _config = config;
             _speed = config.Speed;
             _hp = config.Hp;
-            var color = config.Color;
 
             _enemyObject = enemyObject;
-
-            SetColor(color);
         }
 
         //--------------------------- «доровье
@@ -54,15 +49,6 @@ namespace Enemy.EnemyBase
         {
             _speed = _config.Speed;
             return _speed;
-        }
-
-        //--------------------------- ÷вет
-
-        private void SetColor(Color color)
-        {
-            //todo: в 3д были только цвета, тут можно сделать разные спрайты
-            _body = _enemyObject.Find("Body").GetComponent<SpriteRenderer>();
-            _body.color = color;
         }
     }
 

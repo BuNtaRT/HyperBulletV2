@@ -1,7 +1,8 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Runtime.Base;
-using UnityEngine;
 using Vault;
+using Random = UnityEngine.Random;
 
 namespace Enemy.Spawn
 {

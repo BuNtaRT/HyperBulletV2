@@ -16,6 +16,7 @@ namespace Enemy.EnemyBase
         private void Awake()
         {
             _moveTween.Play();
+            GlobalEventsManager.OnPlayerMove.AddListener(OnPlayerMoveChanged);
         }
 
         public void Init(IEnemyBehavioral behaviour)
@@ -25,16 +26,13 @@ namespace Enemy.EnemyBase
             EnemyConfig config = behaviour.GetConfig();
             _state = new EnemyState(transform, config);
 
-            float duration =
-                Vector2.Distance(transform.position, LvlVariables.PlayerPosition) / _state.GetSpeed();
+            SetColor(config.Color);
+            MoveToPlayer();
 
             GlobalEventsManager.InvokeEnemyCreate(_state);
-
-            _moveTween = transform
-                .DOMove(LvlVariables.PlayerPosition, duration)
-                .SetEase(Ease.Linear)
-                .OnUpdate(OnMoveUpdate);
         }
+
+        //--------------------------- События жизненного цикла
 
         public TakeBulletEnemyEffect TakeBullet(BulletConfig bullet)
         {
@@ -77,10 +75,43 @@ namespace Enemy.EnemyBase
                 .OnComplete(() => Destroy(diePosition));
         }
 
+        //--------------------------- События
+
+        private void OnPlayerMoveChanged(EventMovePlayer movement)
+        {
+            if (movement.Stage == ProgressStage.Ended)
+                MoveToPlayer();
+        }
+
+        //--------------------------- Анимация передвижения
+
+        private void MoveToPlayer()
+        {
+            float duration =
+                Vector2.Distance(transform.position, LvlVariables.PlayerPosition)
+                / _state.GetSpeed();
+
+            _moveTween = transform
+                .DOMove(LvlVariables.PlayerPosition, duration)
+                .SetEase(Ease.Linear)
+                .OnUpdate(OnMoveUpdate);
+        }
+
+        //--------------------------- Удаление
+
         private void Destroy(Vector2 position)
         {
             GlobalEventsManager.InvokeEnemyDie(position);
             ObjectPool.Destroy(TypeObj.Enemy, gameObject);
+        }
+
+        //--------------------------- Цвет
+
+        private void SetColor(Color color)
+        {
+            //todo: в 3д были только цвета, тут можно сделать разные спрайты
+            var body = transform.Find("Body").GetComponent<SpriteRenderer>();
+            body.color = color;
         }
     }
 

@@ -61,9 +61,22 @@ namespace Runtime
 
         //---------------------------------------------------------------------------------------------------
 
+        //--------------------------------------------------------------------------------------------------- Использование способности
+        public static SpellSO LastUsedSpell;
+        public static readonly UnityEvent<SpellSO> OnUseSpell = new UnityEvent<SpellSO>();
+
+        public static void InvokeUseSpell(SpellSO spell)
+        {
+            LastUsedSpell = spell;
+            OnUseSpell.Invoke(spell);
+        }
+
+        //---------------------------------------------------------------------------------------------------
+
         //--------------------------------------------------------------------------------------------------- Поднятие перка
         public static PerkSO LastPickupPerk;
-        public static readonly UnityEvent<PerkSO, bool> OnPickupPerk = new UnityEvent<PerkSO, bool>();
+        public static readonly UnityEvent<PerkSO, bool> OnPickupPerk =
+            new UnityEvent<PerkSO, bool>();
 
         public static void InvokePickupPerk(PerkSO perk, bool confirm)
         {
@@ -92,7 +105,8 @@ namespace Runtime
         //---------------------------------------------------------------------------------------------------
 
         //--------------------------------------------------------------------------------------------------- Создание пули
-        public static readonly UnityEvent<BulletState> OnBulletCreated = new UnityEvent<BulletState>();
+        public static readonly UnityEvent<BulletState> OnBulletCreated =
+            new UnityEvent<BulletState>();
 
         public static void InvokeBulletCreate(BulletState eventState) =>
             OnBulletCreated.Invoke(eventState);
@@ -108,7 +122,8 @@ namespace Runtime
         //---------------------------------------------------------------------------------------------------
 
         //--------------------------------------------------------------------------------------------------- Столкновение пули с обьектом
-        public static readonly UnityEvent<EventBulletHitting> OnBulletHitting = new UnityEvent<EventBulletHitting>();
+        public static readonly UnityEvent<EventBulletHitting> OnBulletHitting =
+            new UnityEvent<EventBulletHitting>();
 
         public static void InvokeBulletHitting(EventBulletHitting eventState) =>
             OnBulletHitting.Invoke(eventState);

@@ -76,6 +76,9 @@ namespace Bullet.BulletBase
 
             float deviation = _state.GetMoveDeviation(elapsedTime);
 
+            if (deviation == 0f)
+                return;
+
             Vector3 currentPosition = transform.position;
             currentPosition.x += deviation;
             transform.position = currentPosition;

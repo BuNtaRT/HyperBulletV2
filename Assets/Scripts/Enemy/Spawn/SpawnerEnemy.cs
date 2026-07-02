@@ -38,7 +38,7 @@ namespace Enemy.Spawn
 
         private void UpdateAngles()
         {
-            Vector3 worldBottomLeft = _mainCamera!.ScreenToWorldPoint(
+            Vector3 worldBottomLeft = _mainCamera.ScreenToWorldPoint(
                 new Vector3(0, 0, _mainCamera.nearClipPlane)
             );
             Vector3 worldBottomRight = _mainCamera.ScreenToWorldPoint(
@@ -56,7 +56,7 @@ namespace Enemy.Spawn
                 GetPointWithBorders(worldBottomLeft),
                 GetPointWithBorders(worldTopLeft),
                 GetPointWithBorders(worldTopRight),
-                GetPointWithBorders(worldBottomRight)
+                GetPointWithBorders(worldBottomRight),
             };
         }
 

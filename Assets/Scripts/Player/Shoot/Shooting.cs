@@ -13,9 +13,7 @@ namespace Player.Shoot
 
         //todo: передавать патроны после загрузки сцены
         public Shooting()
-            : base()
-        {
-        }
+            : base() { }
 
         protected override void OnTouchChanged(EventTouch touch)
         {
@@ -25,8 +23,6 @@ namespace Player.Shoot
             base.OnTouchChanged(touch);
             if (CurrentStatus != GameStatus.Action || _energy < LvlVariables.BulletCost)
                 return;
-
-            Debug.Log("bulletCost - " + LvlVariables.BulletCost);
 
             _energy -= LvlVariables.BulletCost;
             var bullet = ObjectPool.SpawnObj(TypeObj.Bullet, LvlVariables.PlayerPosition);

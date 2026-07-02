@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff2afd3386554e2a9f3af6870efb58b3, type: 3}
   m_Name: SimpleBullet
   m_EditorClassIdentifier: 
-  Speed: 10
-  Damage: 1
-  Color: {r: 0, g: 0.6258707, b: 1, a: 1}
-  Trail:
+  speed: 10
+  damage: 1
+  color: {r: 0, g: 0.6258707, b: 1, a: 1}
+  trail:
     serializedVersion: 2
     key0: {r: 0, g: 0.37485576, b: 1, a: 1}
     key1: {r: 0.6019249, g: 0, b: 1, a: 1}
@@ -45,8 +45,8 @@ MonoBehaviour:
     m_ColorSpace: -1
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
-  CustomMove: 0
-  MovePattern:
+  customMove: 0
+  movePattern:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3

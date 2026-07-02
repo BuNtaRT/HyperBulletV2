@@ -4,17 +4,14 @@ namespace Bonus.Perk.Variations
 {
     public class PerkBase
     {
-        protected PerkRarity _rarity;
+        protected BonusLevel _level;
 
-        public PerkBase()
+        protected PerkBase(string perkName)
         {
-        }
-
-        public PerkBase(string perkName)
-        {
-            if (LvlVariables.AvailablePerks.TryGetValue(perkName, out var rarity) && rarity.Value != null)
-                _rarity = rarity.Value;
-            else _rarity = PerkRarity.Standard;
+            if (LvlVariables.AvailablePerks.TryGetValue(perkName, out var level) && level != null)
+                _level = level.Value;
+            else
+                _level = BonusLevel.First;
         }
     }
 }
